@@ -14,7 +14,7 @@ class Solution:
 
         # 특정 좌표의 방문 여부를 기록하는 그리드
         visited = [[False for i in range(len(grid[0]))] for j in range(len(grid))]
-        loop_que = list()
+        loop_que = list() # 모든 육지의 좌표를 기록하여 bfs를 반복 수행시킬 때 사용할 큐
         for row_idx in range(len(grid)):
             for col_idx in range(len(grid[0])):
                 if grid[row_idx][col_idx] == "1":
