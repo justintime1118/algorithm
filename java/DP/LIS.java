@@ -1,6 +1,6 @@
 import java.util.*;
 
-public class Main {
+public class LIS {
     public static void main(String args[]) {
         Scanner sc = new Scanner(System.in);
 
@@ -10,6 +10,7 @@ public class Main {
         for (int i = 0; i < n; i++) {
             a[i] = sc.nextInt();
         }
+        sc.close();
 
         int d[] = new int[n];
         for (int i = 0; i < n; i++) {

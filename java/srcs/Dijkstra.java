@@ -1,6 +1,6 @@
 import java.util.*;
 
-class Solution {
+class Dijkstra {
     
     public class Edge implements Comparable<Edge> {
         int v, w;

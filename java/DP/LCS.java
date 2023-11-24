@@ -1,6 +1,6 @@
 import java.util.*;
 
-public class Main {
+public class LCS {
     public static void main(String args[]) {
         Scanner sc = new Scanner(System.in);
 
@@ -8,6 +8,8 @@ public class Main {
         int lb = sc.nextInt();
         String a = sc.next();
         String b = sc.next();
+        sc.close();
+
 		// 테이블을 머릿속으로 상상하면서 보면 좀 더 이해가 쉽다
         int lcs[][] = new int[la + 1][lb + 1];
         for (int i = 1; i <= la; i++) {
