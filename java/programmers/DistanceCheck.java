@@ -71,6 +71,10 @@ class Solution {
 }
 /*
 계속 정확도 83.5 %로 틀렸던 코드
+로직 자체에 오류가 있었다기 보다 구현 과정에서 실수를 범했고 그걸 발견하지 못했다.
+마지막 부분에 왼쪽 하단 대각선 검사할 때 아래처럼 고쳤어야 함
+if (0 <= x - 1 && 0 <= y - 1 && charArr[y - 1][x - 1] == 'P')
+    -> if (0 <= x - 1 && y + 1 < 5 && charArr[y + 1][x - 1] == 'P')
 class Solution {
     private final int LEN = 5;
     
@@ -119,6 +123,7 @@ class Solution {
                         return false;
                 }
                 // 왼쪽 하단 대각선 자리에 앉은 사람이 있고 && 그 사이가 비어있는지 검사
+                // 여기에 y를 1을 뺄 것이 아니라 더해줘야 하는데 여기 실수한 걸 발견 못했다..
                 if (0 <= x - 1 && 0 <= y - 1 && charArr[y - 1][x - 1] == 'P') {
                     if (charArr[y - 1][x] != 'X' || charArr[y][x - 1] != 'X')
                         return false;
