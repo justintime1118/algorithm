@@ -6,35 +6,25 @@ import java.util.*;
 
 class Solution {
     
-    private static int numLen;
-    private static boolean[] isUsed;
-    
     public int solution(String numbers) {
-        numLen = numbers.length();
-        isUsed = new boolean[numLen];
-        
         HashSet<Integer> primeSet = new HashSet<>();
-        backTrack(0, "", isUsed, numbers, primeSet);
+        int[] numArray = numbers.chars().map(c -> c- '0').toArray();
+        getPrime(0, numArray, new boolean[numArray.length], primeSet);
         return primeSet.size();
     }
     
-    public void backTrack(int depth, String number, boolean[] isUsed, String numbers, HashSet<Integer> primeSet) {
-        
-        if (depth > numbers.length())
-            return;
-        
-        if (!number.equals("")) {
-            int numberInt = Integer.valueOf(number);
-            if (isPrime(numberInt) == true) {
-                primeSet.add(numberInt);
-            }
+    public void getPrime(int currentNum, int[] numArray, boolean[] isUsed, HashSet<Integer> primeSet) {
+
+        if (isPrime(currentNum) == true) {
+            primeSet.add(currentNum);
         }
         
-        for (int i = 0; i < numbers.length(); i++) {
-            if (isUsed[i] == true)
+        for (int i = 0; i < numArray.length; i++) {
+            if (isUsed[i])
                 continue;
+            int nextNum = currentNum * 10 + numArray[i];
             isUsed[i] = true;
-            backTrack(depth + 1, number + numbers.charAt(i), isUsed, numbers, primeSet);
+            getPrime(nextNum, numArray, isUsed, primeSet);
             isUsed[i] = false;
         }
     }
