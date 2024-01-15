@@ -21,15 +21,16 @@ class Solution {
         return ans.size();
     }
     
-    // dfs로 모든 제재 아이디 목록을 뽑아내는 메서드
-    // 마지막 깊이에 도달하면 ans.add()로 제재 아이디 목록이 들어있는 set을 추가
+    // 백트래킹 방식으로 모든 제재 아이디 목록을 뽑아내는 메서드
+    // 마지막 깊이에 도달하면 ans.add()로 제재 아이디 목록이 들어있는 set을 ans에 추가
     public void dfs(int depth, HashSet<String>[] mappedIdSetArr, HashSet<String> curSet) {
         if (depth == mappedIdSetArr.length) {
             ans.add(new HashSet<String>(curSet));
             return;
         }
         
-        // 현재 선택한 제재 아이디 목록 세트에서 값을 하나씩 선택하면서 다음 set를 넣어서 dfs를 호출
+        // 제재 아이디 목록 세트 배열[현재 깊이]에서 값을 하나씩 꺼내 curSet에 넣고 깊이를 하나 더해서 재귀 호출
+        // 이미 curSet에 들어간 id이면 재귀호출을 하지 않고 넘어감
         for (String id : mappedIdSetArr[depth]) {
             if (curSet.contains(id)) {
                 continue;
@@ -40,6 +41,7 @@ class Solution {
         }
     }
     
+    // userId의 원소 중 전달받은 제재 아이디 패턴(idPattern)에 매핑되는 것들을 원소로 갖는 Set을 만들어서 반환
     public HashSet<String> getMappedIdSet(String idPattern, String[] userId) {
         String patternString = idPattern.replace("*", ".");
         
@@ -52,3 +54,8 @@ class Solution {
         return set;
     }
 }
+/*
+
+
+
+ */
