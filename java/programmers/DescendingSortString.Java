@@ -4,12 +4,12 @@ import java.util.*;
 
 class Solution {
     public String solution(String s) {
-        char[] sortedStr = s.toCharArray();
-        Arrays.sort(sortedStr);
-        StringBuffer ans = new StringBuffer(sortedStr.length);
-        for (int i = sortedStr.length - 1; i >= 0; i--) {
-            ans.append(sortedStr[i]);
-        }
-        return new String(ans);
+        return s.chars()
+                .boxed()
+                .sorted(Collections.reverseOrder())
+                .collect(StringBuffer::new,
+                         StringBuffer::appendCodePoint,
+                         StringBuffer::append) // 멀티스레드 환경에서 사용되는 파라미터
+                .toString();
     }
 }
