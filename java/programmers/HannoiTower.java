@@ -1,35 +1,27 @@
 package programmers;
 
 // 문제 링크: https://school.programmers.co.kr/learn/courses/30/lessons/12946
-
-import java.util.*;
+import java.util.ArrayList;
 
 class Solution {
-    
-    private ArrayList<int[]> orders = new ArrayList<>();
-    
+
+    ArrayList<int[]> moveHistory = new ArrayList<>();
+
     public int[][] solution(int n) {
-        
+
         move(n, 1, 3);
-        
-        int[][] ans = new int[orders.size()][2];
-        for (int i = 0; i < orders.size(); i++) {
-            ans[i] = orders.get(i);
-        }
-        return ans;
+
+        return moveHistory.stream().toArray(int[][]::new);
     }
-    
-    public void move(int n, int from, int to) {
-        
-        if (n == 1) {
-            // 1을 from에서 to로 옮긴다
-            orders.add(new int[] {from, to});
+
+    public void move(int plateNum, int currentPos, int nextPos) {
+
+        if (plateNum == 1) {
+            moveHistory.add(new int[] { currentPos, nextPos });
             return;
         }
-        
-        move(n - 1, from, 6 - from - to);
-        // 원판 n을 옮긴다
-        orders.add(new int[] {from, to});
-        move(n - 1, 6 - from - to, to);
+        move(plateNum - 1, currentPos, 6 - currentPos - nextPos);
+        moveHistory.add(new int[] { currentPos, nextPos });
+        move(plateNum - 1, 6 - currentPos - nextPos, nextPos);
     }
 }
