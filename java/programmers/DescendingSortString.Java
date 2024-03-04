@@ -7,9 +7,9 @@ class Solution {
         return s.chars()
                 .boxed()
                 .sorted(Collections.reverseOrder())
-                .collect(StringBuffer::new,
-                         StringBuffer::appendCodePoint,
-                         StringBuffer::append) // 멀티스레드 환경에서 사용되는 파라미터
+                .collect(StringBuffer::new, // supplier
+                         StringBuffer::appendCodePoint, // accumulator
+                         StringBuffer::append) // combiner(멀티스레드 환경에서 사용되는 파라미터)
                 .toString();
     }
 }

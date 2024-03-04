@@ -1,6 +1,8 @@
-// 프로그래머스 섬 연결하기 (https://programmers.co.kr/learn/courses/30/lessons/42861)
+package programmers;
+// 문제 링크: https://programmers.co.kr/learn/courses/30/lessons/42861
 
-import java.util.*;
+import java.util.Comparator;
+import java.util.PriorityQueue;
 
 class Solution {
 
@@ -21,7 +23,7 @@ class Solution {
                 return arr1[1] - arr2[1];
             }
         });
-        
+
         // 프림 알고리즘 메인 로직 시작부
         int s = costs[0][0];
         int[] tmp;
