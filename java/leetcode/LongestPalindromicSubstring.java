@@ -5,24 +5,27 @@ class Solution {
         if (s.length() == 1)
             return s;
 
+        int len = s.length();
         String ans = s.substring(0, 1);
-        for (int begin = 0; begin < s.length() - 1; begin++) {
-            for (int end = begin + 1; end < s.length(); end++) {
-                String tmp = s.substring(begin, end + 1);
-                if (isPalindrome(tmp) == true) {
-                    ans = tmp.length() > ans.length()
-                            ? tmp
-                            : ans;
+        char[] charArr = s.toCharArray();
+        for (int length = len; length > 0; length--) {
+            for (int start = 0; start + length <= len; start++) {
+                if (isPalindrome(charArr, start, start + length - 1) == true) {
+                    return s.substring(start, start + length);
                 }
             }
         }
         return ans;
     };
 
-    public boolean isPalindrome(String str) {
-        StringBuilder sb = new StringBuilder(str);
-        sb.reverse();
-        String reversedStr = new String(sb);
-        return str.equals(reversedStr);
+    public boolean isPalindrome(char[] arr, int left, int right) {
+
+        while (left < right) {
+            if (arr[left] != arr[right])
+                return false;
+            left++;
+            right--;
+        }
+        return true;
     }
 }
