@@ -13,9 +13,8 @@ class Solution {
         // (0,1), (2,3), ...으로 짝을 이룬 뒤 더 작은 것을 고르는 것과 같음
         int ans = 0;
         for (int i = 0; i < nums.length; i++) {
-            if (i % 2 != 0)
-                continue;
-            ans += nums[i];
+            if (i % 2 == 0)
+                ans += nums[i];
         }
         return ans;
     }
