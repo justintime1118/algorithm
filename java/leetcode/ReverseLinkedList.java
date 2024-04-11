@@ -13,6 +13,7 @@ import java.util.LinkedList;
  * }
  */
 class Solution {
+    // 스택을 활용한 풀이
     public ListNode reverseList(ListNode head) {
         if (head == null)
             return head;
