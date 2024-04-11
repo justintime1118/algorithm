@@ -15,12 +15,13 @@ package leetcode;
 class Solution {
     public ListNode addTwoNumbers(ListNode l1, ListNode l2) {
 
-        boolean gt10 = false;
-        ;
+        // 자릿수 합이 9보다 큰지를 기록하는 플래그 변수
+        boolean gt9 = false;
         ListNode cur = new ListNode();
         ListNode head = cur;
         while (true) {
-            if (gt10 == true) {
+            // 이전 자릿수에서 넘어온 값이 있다면 반영
+            if (gt9 == true) {
                 cur.val += 1;
             }
             if (l1 != null) {
@@ -32,11 +33,13 @@ class Solution {
                 l2 = l2.next;
             }
 
+            // 현 자릿수 합이 9보다 큰지 기록하고,
+            // 만약 9보다 크다면 1의 자리만 남김
             if (cur.val > 9) {
-                gt10 = true;
+                gt9 = true;
                 cur.val %= 10;
             } else {
-                gt10 = false;
+                gt9 = false;
             }
 
             if (l1 != null || l2 != null) {
@@ -45,7 +48,10 @@ class Solution {
             } else
                 break;
         }
-        if (gt10 == true) {
+
+        // 마지막 자리 처리
+        // 이전 자릿수 합이 9보다 컸을 경우에만 새로운 노드를 만들고 val에 1을 넣어줌
+        if (gt9 == true) {
             cur.next = new ListNode();
             cur.next.val = 1;
         }
