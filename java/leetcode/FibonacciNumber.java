@@ -3,21 +3,20 @@ package leetcode;
 //문제 링크: https://leetcode.com/problems/fibonacci-number/
 
 class Solution {
+    int[] dp;
+
     public int fib(int n) {
-        if (n == 0)
-            return 0;
-        if (n == 1)
-            return 1;
-        int i = 2;
-        int prev1 = 0;
-        int prev2 = 1;
-        int result = 0;
-        while (i <= n) {
-            result = prev2 + prev1;
-            prev1 = prev2;
-            prev2 = result;
-            i++;
-        }
-        return result;
+        dp = new int[n + 2];
+        dp[0] = 0;
+        dp[1] = 1;
+
+        return recur(n);
+    }
+
+    public int recur(int n) {
+        if (n < 2 || dp[n] != 0)
+            return dp[n];
+        dp[n] = recur(n - 1) + recur(n - 2);
+        return dp[n];
     }
 }
