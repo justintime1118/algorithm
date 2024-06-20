@@ -20,26 +20,19 @@ import javax.swing.tree.TreeNode;
  * }
  */
 class Solution {
-    public TreeNode invertTree(TreeNode root) {
-        dfi(root);
-        return root;
-    }
-
-    public void dfi(TreeNode node) {
+    public TreeNode invertTree(TreeNode node) {
         // base condition
         if (node == null)
-            return;
+            return null;
 
         // recursive logic
-        dfi(node.left);
-        dfi(node.right);
+        invertTree(node.left);
+        invertTree(node.right);
 
-        switchChildren(node);
-    }
+        TreeNode tmp = node.left;
+        node.left = node.right;
+        node.right = tmp;
 
-    public void switchChildren(TreeNode parent) {
-        TreeNode tmp = parent.left;
-        parent.left = parent.right;
-        parent.right = tmp;
+        return node;
     }
 }
