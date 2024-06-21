@@ -21,18 +21,16 @@ import javax.swing.tree.TreeNode;
  */
 class Solution {
     public TreeNode mergeTrees(TreeNode root1, TreeNode root2) {
-        if (root1 == null && root2 == null)
-            return null;
-        if (root1 != null && root2 == null)
+        if (root2 == null)
             return root1;
-        if (root1 == null && root2 != null)
+        if (root1 == null)
             return root2;
 
-        TreeNode newRoot = new TreeNode(
+        TreeNode mergedNode = new TreeNode(
                 root1.val + root2.val,
                 mergeTrees(root1.left, root2.left),
                 mergeTrees(root1.right, root2.right));
-        return newRoot;
+        return mergedNode;
     }
 }
 /*
