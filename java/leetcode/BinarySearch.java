@@ -8,7 +8,7 @@ class Solution {
     }
 
     public int bs(int left, int right, int target, int[] nums) {
-        int idx = (left + right) / 2;
+        int idx = left + (right - left) / 2; // prevent overflow
 
         // 종료조건
         if (left > right)
