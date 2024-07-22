@@ -9,12 +9,8 @@ import java.util.Queue;
 
 class Solution {
     public int[][] reconstructQueue(int[][] people) {
-        Queue<int[]> pq = new PriorityQueue<>((arr1, arr2) -> {
-            if (arr1[0] != arr2[0])
-                return arr2[0] - arr1[0];
-            else
-                return arr1[1] - arr2[1];
-        });
+        Queue<int[]> pq = new PriorityQueue<>(
+                (a, b) -> a[0] != b[0] ? b[0] - a[0] : a[1] - b[1]);
 
         for (int[] person : people)
             pq.add(person);
@@ -25,10 +21,6 @@ class Solution {
             arrlst.add(person[1], person);
         }
 
-        int[][] ans = new int[people.length][2];
-        for (int i = 0; i < ans.length; i++)
-            ans[i] = arrlst.get(i);
-
-        return ans;
+        return arrlst.toArray(new int[people.length][2]);
     }
 }
