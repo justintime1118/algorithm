@@ -22,6 +22,6 @@ class Solution {
             }
         }
         // 올바른 괄호쌍이라면 스택이 비어있어야 함
-        return stack.isEmpty() ? true : false;
+        return stack.isEmpty();
     }
 }
