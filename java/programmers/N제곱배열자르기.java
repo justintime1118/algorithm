@@ -12,10 +12,6 @@ class Solution {
             long col = idx % n + 1;
 
             ans[i] = col <= row ? (int) row : (int) col;
-            if (col <= row)
-                ans[i] = (int) row;
-            else
-                ans[i] = (int) col;
         }
 
         return ans;
