@@ -7,28 +7,23 @@ import java.util.Map;
 
 class Solution {
     public String solution(String[] participants, String[] completions) {
-        Map<String, Integer> partMap = new HashMap<>();
-        for (String p : participants) {
-            partMap.putIfAbsent(p, 0);
-            partMap.put(p, partMap.get(p) + 1);
-        }
-
+        Map<String, Integer> compMap = new HashMap<>();
         for (String c : completions) {
-            partMap.put(c, partMap.get(c) - 1);
-            if (partMap.get(c) == 0)
-                partMap.remove(c);
+            compMap.put(c, compMap.getOrDefault(c, 0) + 1);
         }
 
-        String ans = null;
-        for (String unfinished : partMap.keySet())
-            ans = unfinished;
+        for (String p : participants) {
+            if (compMap.getOrDefault(p, 0) == 0)
+                return p;
+            compMap.put(p, compMap.get(p) - 1);
+        }
 
-        return ans;
+        return null;
     }
 }
 /*
- * 해시 맵을 만들어서 participant를 싹 다 넣고,
- * completion에 있는 애들을 싹 빼면
+ * 해시 맵을 만들어서 completion을 싹 다 넣고,
+ * participant를 싹 빼면
  * 마지막에 남는 녀석이 답
  * 
  * 동명이인 처리가 핵심
