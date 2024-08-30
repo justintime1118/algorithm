@@ -13,9 +13,11 @@ class Solution {
 
         Map<String, Integer> discountMap = new HashMap<>();
         for (int i = 0; i < 10; i++) {
-            discountMap.put(
-                    discount[i],
-                    discountMap.getOrDefault(discount[i], 0) + 1);
+            if (wantMap.containsKey(discount[i])) {
+                discountMap.put(
+                        discount[i],
+                        discountMap.getOrDefault(discount[i], 0) + 1);
+            }
         }
 
         int answer = 0;
@@ -23,32 +25,28 @@ class Solution {
         int lastIdx = firstIdx + 9;
         while (true) {
             // 원하는 품목이 할인 품목에 다 들어있는지 체크
-            if (isIncluded(wantMap, discountMap))
+            if (wantMap.equals(discountMap))
                 answer++;
             // 다음 날짜로 이동
             // 지나간 할인품목 제거
-            discountMap.put(
-                    discount[firstIdx],
-                    discountMap.get(discount[firstIdx]) - 1);
+            if (discountMap.containsKey(discount[firstIdx])) {
+                discountMap.put(
+                        discount[firstIdx],
+                        discountMap.get(discount[firstIdx]) - 1);
+            }
             firstIdx++;
             lastIdx++;
             // 다음 날짜가 날짜 범위를 벗어났으면 종료
             if (lastIdx == discount.length)
                 break;
             // 새로운 할인품목 추가
-            discountMap.put(
-                    discount[lastIdx],
-                    discountMap.getOrDefault(discount[lastIdx], 0) + 1);
+            if (wantMap.containsKey(discount[lastIdx])) {
+                discountMap.put(
+                        discount[lastIdx],
+                        discountMap.getOrDefault(discount[lastIdx], 0) + 1);
+            }
         }
         return answer;
-    }
-
-    public boolean isIncluded(Map<String, Integer> wantMap, Map<String, Integer> discountMap) {
-        for (String key : wantMap.keySet()) {
-            if (!discountMap.containsKey(key) || discountMap.get(key) < wantMap.get(key))
-                return false;
-        }
-        return true;
     }
 }
 /*
