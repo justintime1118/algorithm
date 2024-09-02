@@ -25,6 +25,8 @@ class Solution {
                 ans[idx] = i - idx;
             }
         }
+
+        // 가격이 한번도 떨어지지 않아서 스택에 남아있는 녀석들 처리
         while (!stack.isEmpty()) {
             int idx = stack.pop();
             ans[idx] = prices.length - 1 - idx;
