@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 class Solution {
     public int[] solution(String[] genres, int[] plays) {
@@ -21,30 +21,22 @@ class Solution {
             genreMusicMap.get(genres[i]).add(new int[] { i, plays[i] });
         }
 
-        List<String> sortedGenrePlayList = genrePlayMap.entrySet().stream()
-                .sorted((e1, e2) -> e2.getValue() - e1.getValue())
-                .map(Map.Entry::getKey)
-                .collect(Collectors.toList());
+        Stream<Map.Entry<String, Integer>> sortedGenre = genrePlayMap.entrySet().stream()
+                // 오버플로우 방지를 위해, 값 비교에는 Integer와 같은 래퍼 클래스를 써주는게 좋다
+                .sorted((e1, e2) -> Integer.compare(e2.getValue(), e1.getValue()));
 
         List<Integer> ans = new ArrayList<>();
 
-        for (String genre : sortedGenrePlayList) {
-            List<Integer> sortedMusicNumList = genreMusicMap.get(genre).stream()
-                    .sorted((e1, e2) -> {
-                        if (e1[1] == e2[1])
-                            return e1[0] - e2[0];
-                        else
-                            return e2[1] - e1[1];
-                    })
-                    .map(e -> e[0])
-                    .limit(2)
-                    .collect(Collectors.toList());
-            ans.addAll(sortedMusicNumList);
-        }
+        sortedGenre.forEach(entry -> {
+            Stream<int[]> sortedSongs = genreMusicMap.get(entry.getKey()).stream()
+                    // stream의 sorted는 순서가 있는 스트림을 정렬할 때 기존 순서를 유지하는 stable sort이다
+                    // 따라서 고유번호에 따른 오름차순 정렬을 따로 해주지 않아도 됨
+                    .sorted((e1, e2) -> Integer.compare(e2[1], e1[1]))
+                    .limit(2);
+            sortedSongs.forEach(song -> ans.add(song[0]));
+        });
 
-        return ans.stream()
-                .mapToInt(Integer::intValue)
-                .toArray();
+        return ans.stream().mapToInt(Integer::intValue).toArray();
     }
 }
 /*
