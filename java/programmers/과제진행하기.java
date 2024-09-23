@@ -17,7 +17,7 @@ class Solution {
             plansQue.add(plan);
 
         // 중도에 멈춘 작업들을 보관할 스택
-        Deque<String[]> waitingQue = new ArrayDeque<>();
+        Deque<String[]> waitingStack = new ArrayDeque<>();
 
         // 정답을 담을 리스트
         List<String> ans = new ArrayList<>();
@@ -39,12 +39,12 @@ class Solution {
                 ans.add(plan[0]);
                 minutesLeft -= Integer.valueOf(plan[2]);
                 // 다음 과제 시작까지 남은 시간을 이용해서 대기 큐 처리
-                while (!waitingQue.isEmpty() && minutesLeft > 0) {
-                    if (Integer.valueOf(waitingQue.peek()[2]) <= minutesLeft) {
-                        ans.add(waitingQue.peek()[0]);
-                        minutesLeft -= Integer.valueOf(waitingQue.pop()[2]);
+                while (!waitingStack.isEmpty() && minutesLeft > 0) {
+                    if (Integer.valueOf(waitingStack.peek()[2]) <= minutesLeft) {
+                        ans.add(waitingStack.peek()[0]);
+                        minutesLeft -= Integer.valueOf(waitingStack.pop()[2]);
                     } else {
-                        waitingQue.peek()[2] = String.valueOf(Integer.valueOf(waitingQue.peek()[2]) - minutesLeft);
+                        waitingStack.peek()[2] = String.valueOf(Integer.valueOf(waitingStack.peek()[2]) - minutesLeft);
                         break;
                     }
                 }
@@ -52,7 +52,7 @@ class Solution {
             // 다음 과제 시작 전까지 끝나지 않으면 그 사이에 경과된 시간만큼을 차감하여, 대기 큐에 추가
             else {
                 plan[2] = String.valueOf(Integer.valueOf(plan[2]) - minutesLeft);
-                waitingQue.push(plan);
+                waitingStack.push(plan);
             }
         }
 
