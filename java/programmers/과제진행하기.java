@@ -40,7 +40,7 @@ class Solution {
                 // 현 과제 완료 후 남은 시간 갱신
                 ans.add(plan[0]);
                 minutesLeft -= Integer.valueOf(plan[2]);
-                // 다음 과제 시작까지 남은 시간을 이용해서 대기 큐 처리
+                // 다음 과제 시작까지 남은 시간을 이용해서 대기 스택 처리
                 while (!waitingStack.isEmpty() && minutesLeft > 0) {
                     if (Integer.valueOf(waitingStack.peek()[2]) <= minutesLeft) {
                         ans.add(waitingStack.peek()[0]);
@@ -51,14 +51,14 @@ class Solution {
                     }
                 }
             }
-            // 다음 과제 시작 전까지 끝나지 않으면 그 사이에 경과된 시간만큼을 차감하여, 대기 큐에 추가
+            // 다음 과제 시작 전까지 끝나지 않으면 그 사이에 경과된 시간만큼을 차감하여, 대기 스택에 추가
             else {
                 plan[2] = String.valueOf(Integer.valueOf(plan[2]) - minutesLeft);
                 waitingStack.push(plan);
             }
         }
 
-        // plansQue 전체 순회한 뒤, waitingQue에 담겨있는 작업 순서대로 ans에 추가
+        // plansQue 전체 순회한 뒤, 스택에 담겨있는 작업 순서대로 ans에 추가
         while (!waitingStack.isEmpty())
             ans.add(waitingStack.pop()[0]);
 
